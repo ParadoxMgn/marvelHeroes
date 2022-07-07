@@ -140,6 +140,10 @@ h6 {
   width: 180px;
 }
 
+.cards__species {
+  margin-bottom: 5px;
+}
+
 .header__select-head-btn {
   padding: 10px;
   border-radius: 5px;
