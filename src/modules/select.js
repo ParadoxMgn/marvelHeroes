@@ -1,17 +1,22 @@
 import { render } from './render';
 
-const select = (arrCards) => {
-  const selectUl = document.querySelector('.select');
-  const selectHead = document.querySelector('.header__select-head');
+const select = (arrCards, idList, idSelect, option) => {
+  const selectUl = document.getElementById(idList);
+  const selectHead = document.getElementById(idSelect);
   let selectArr = [];
 
   arrCards.forEach(item => {
-    if (item.movies) {
-      item.movies.forEach(move => {
-        selectArr.push(move);
+    if (item[option] && Array.isArray(item[option])) {
+      item[option].forEach(itemIn => {
+        selectArr.push(itemIn);
       });
     }
+    if (item[option] && !Array.isArray(item[option])) {
+      selectArr.push(item[option].toLowerCase());
+    }
   });
+
+
 
   selectArr = selectArr.filter((item, index) => {
     return selectArr.indexOf(item.trim()) === index;
@@ -37,7 +42,13 @@ const select = (arrCards) => {
       if (e.target === item) {
         selectHead.innerText = item.innerText;
 
-        render(arrCards, item.innerText);
+        if (item.classList.contains('def')) {
+          selectHead.classList.remove('active');
+        } else {
+          selectHead.classList.add('active');
+        }
+
+        render(arrCards);
       }
     });
   });
